@@ -18,7 +18,7 @@ def show_animes_today():
     this_season = now.month/3 + 1
     weekday = now.weekday()
     animes = Anime.query.filter_by(year=this_year, season=this_season, weekday=weekday)
-    torrents = {anime.cn_name: Torrent.query.filter_by(anime.like('%'+anime.cn_name+'%')) for anime in animes}
+    torrents = {anime.cn_name: anime.get_alike_torrents(app.config['TORRENTS_PER_ANIME']) for anime in animes}
     return render_template('today.html', animes=animes, torrents=torrents)
 
 

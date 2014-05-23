@@ -64,6 +64,15 @@ class TestAnime(TestModel):
         assert animes[1].id == 1
         assert animes[1].cn_name == u'虫师'
 
+    def test_get_alike_torrents(self):
+        anime = Anime(cn_name=u'JOJO', name=u'JOJO的奇妙冒险')
+        Torrent(title=u'JOJO的奇妙冒险[1]', link='http://t.tt/link/1', enclosure='http://dsf.io/1').create()
+        Torrent(title=u'JOJO的奇妙冒险[2]', link='http://t.tt/link/2', enclosure='http://dsf.io/2').create()
+        length = 0
+        for t in anime.get_alike_torrents(5):
+            length += 1
+        assert length == 2
+
 
 class TestTorrent(TestModel):
 

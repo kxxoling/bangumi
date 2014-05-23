@@ -77,6 +77,9 @@ class Anime(db.Model, CURDMixIN):
     def unfinished(self):
         self.finished = NOT_FINISHED
 
+    def get_alike_torrents(self, lmt):
+        return Torrent.query.filter(Torrent.title.like('%'+self.name+'%')).limit(lmt)
+
     @classmethod
     def get_newest_added(cls, lmt):
         return cls.query.order_by(cls.id.desc()).limit(lmt)
@@ -104,7 +107,7 @@ class Torrent(db.Model, CURDMixIN):
     pub_date = db.Column(db.DateTime)                       # 发布日期
     description = db.Column(db.String(1000))                # 介绍
 
-    def __init__(self, title, link, enclosure, pubdate, description):
+    def __init__(self, title, link, enclosure='', pubdate=datetime.datetime.now(), description=''):
         self.title = title
         self.link = link
         self.enclosure = enclosure

@@ -32,6 +32,17 @@ def login_required(func):
     return wrapper
 
 
+def get_right_side_bar(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        anime = Anime(cn_name=u'物语系列')
+        anime.id = 2
+        g.hottest_animes = [anime]
+        g.newest_updated_animes = []
+        return func(*args, **kwargs)
+    return wrapper
+
+
 from website.models.models import User, Anime, Torrent, AnimeReview, ActorQuote
 from website.blueprints.index import index_bp
 from website.blueprints.anime import anime_bp

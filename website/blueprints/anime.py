@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, flash, redirect, url_for, request, Blueprint
 
-from website import app, db, login_required
+from website import app, db, login_required, get_right_side_bar
 from website.models.models import Anime, Torrent
 from website.forms.forms import AddAnimeForm, EditAnimeForm
 
@@ -15,6 +15,7 @@ def anime():
 
 
 @anime_bp.route('/<int:anime_id>/')
+@get_right_side_bar
 def show_anime(anime_id):
     anime = Anime.query.get(anime_id)
     torrents = None
@@ -62,6 +63,7 @@ def edit_anime(anime_id):
 
 
 @anime_bp.route('/search/')
+@get_right_side_bar
 def search():
     if request.args.get('q'):
         info = request.args['q']

@@ -105,7 +105,9 @@
     <div class="panel panel-default">
       <div class="panel-heading">推荐榜</div>
       <ul class="list-group">
-        <li class="list-group-item">物语系列</li>
+        {% for anime in g.hottest_animes %}
+        <li class="list-group-item"><a href="{{ url_for('anime.show_anime', anime_id=anime.id) }}">{{ anime.cn_name }}</a> </li>
+        {% endfor %}
         <li class="list-group-item">EVA</li>
         <li class="list-group-item">Ghost in the Shell</li>
         <li class="list-group-item">Stand Alone Complex</li>
@@ -114,6 +116,9 @@
 
       <div class="panel-heading">最近更新</div>
       <ul class="list-group">
+        {% for anime in g.newest_updated_animes %}
+        <li class="list-group-item"><a href="{{ url_for('anime.show_anime', anime_id=anime.id) }}">{{ anime.cn_name }}</a> </li>
+        {% endfor %}
         <li class="list-group-item">物语系列二</li>
         <li class="list-group-item">狼与香辛料</li>
         <li class="list-group-item">Death Note</li>

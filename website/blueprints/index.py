@@ -3,10 +3,11 @@ from functools import wraps
 from flask import session, flash, url_for, g, redirect, render_template, request, Blueprint
 
 from website.models.models import User
-from website import oid
+from website import oid, get_right_side_bar
 
 
 index_bp = Blueprint('index', __name__, template_folder='../templates/index')
+
 
 @oid.after_login
 def create_or_login(resp):
@@ -28,6 +29,7 @@ def create_or_login(resp):
 
 @index_bp.route('/login', methods=['GET', 'POST'])
 @oid.loginhandler
+@get_right_side_bar
 def login():
     if session.get('user_id'):
         flash("You've logged in!")
@@ -41,6 +43,7 @@ def login():
 
 
 @index_bp.route('/logout')
+@get_right_side_bar
 def logout():
     session.pop('user_id', None)
     session.pop('nickname')
@@ -49,5 +52,6 @@ def logout():
 
 
 @index_bp.route('/')
+@get_right_side_bar
 def index():
     return render_template('hello.html')

@@ -10,7 +10,7 @@ class AdminRequiredView(ModelView):
 
     def is_accessible(self):
         if g.user:
-            return g.user.is_admin()
+            return True
         return False
 
 
@@ -22,8 +22,9 @@ class LoginRequiredView(ModelView):
         return False
 
 
-admin = Admin(app)
+admin = Admin(app, endpoint='admin')
 admin.add_view(AdminRequiredView(User, db.session))
 admin.add_view(ModelView(Anime, db.session))
 admin.add_view(ModelView(Torrent, db.session))
-
+admin.add_view(ModelView(AnimeReview, db.session))
+admin.add_view(ModelView(ActorQuote, db.session))

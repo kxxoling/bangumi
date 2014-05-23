@@ -36,8 +36,10 @@ from website.models.models import User, Anime, Torrent, AnimeReview, ActorQuote
 from website.blueprints.index import index_bp
 from website.blueprints.anime import anime_bp
 from website.blueprints.bangumi import bangumi_bp
+from website.blueprints.admin import admin
 
 app.register_blueprint(index_bp)
 app.register_blueprint(anime_bp)
 app.register_blueprint(bangumi_bp)
+
 db.create_all()

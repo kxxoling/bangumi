@@ -36,6 +36,27 @@
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="{{ url_for('bangumi.show_animes_today') }}">本日更新</a></li>
+          <li><a href="{{ url_for('bangumi.show_animes_this_season') }}">本季新番</a></li>
+          <li><a href="{{ url_for('bangumi.show_all_animes') }}">所有动画</a></li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">常用链接<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="{{ url_for('userview.index_view') }}">管理用户</a></li>
+              <li><a href="{{ url_for('animeview.index_view') }}">管理动画</a></li>
+              <li><a href="{{ url_for('torrentview.index_view') }}">管理种子</a></li>
+              <li><a href="{{ url_for('animereviewview.index_view') }}">管理漫评</a></li>
+              <li><a href="{{ url_for('actorquoteview.index_view') }}">管理台词</a></li>
+              <li class="divider"></li>
+              <li><a href="{{ url_for('anime.show_anime', anime_id=1) }}">测试动画</a></li>
+              <li><a href="{{ url_for('anime.search') }}?q=1">测试搜索</a></li>
+              <li><a href="{{ url_for('anime.search') }}?q=sdfwer">测试搜索</a></li>
+              <li><a href="{{ url_for('anime.search') }}?q=虫师">测试搜索</a></li>
+            </ul>
+          </li>
+        </ul>
         <form class="navbar-form navbar-left" role="search"
                    method=get action="{{ url_for('anime.search') }}">
           <div class="form-group">

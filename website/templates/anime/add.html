@@ -1,0 +1,15 @@
+{% extends "./base.html" %}
+{% block body %}
+    {% from "forms.html" import add_anime_field %}
+    <form method="post" enctype="multipart/form-data">
+		  <legend>推荐动漫</legend>
+      <div class="row control-group" enctype="multipart/form-data">
+        {{ add_anime_field(form.cn_name) }}
+        {{ add_anime_field(form.name) }}
+        {{ add_anime_field(form.tags) }}
+        {{ add_anime_field(form.date) }}
+        {{ add_anime_field(form.finished) }}
+        <input type="submit" value="添加">
+      </div>
+    </form>
+{% endblock %}

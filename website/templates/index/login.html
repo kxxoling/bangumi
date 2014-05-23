@@ -1,0 +1,13 @@
+{% extends "./base.html" %}
+{% block body %}
+请使用 Google 帐户登录本网站：
+<div>
+    <form action="" method=post>
+    {% if error %}<p class=error><strong>Error:</strong> {{ error }}</p>{% endif %}
+    <p>
+      <input type="text" name="openid" size=30 value="https://www.google.com/accounts/o8/id">
+      <input type="submit" value="Sign in">
+      <input type="hidden" name="next" value="{{ next }}">
+  </form>
+</div>
+{% endblock %}

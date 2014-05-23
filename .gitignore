@@ -1,0 +1,8 @@
+.DS_Store
+.idea
+website/.DS_Store
+website/static/img/UPLOAD_FOLDER/*
+*.pyc
+*.db
+*.log
+config.py

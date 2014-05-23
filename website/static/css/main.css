@@ -1,0 +1,157 @@
+/*自定义样式*/
+
+
+
+.navbar-brand{
+  margin-left:0
+}
+
+.navbar-fixed-top{
+  height:50px;
+  background-color: #dddddd
+}
+
+.navbar-default{
+  background-color:transparent;
+  border-width:0 0 0 0;
+}
+
+.avatar{
+  width: 50px;
+  height: 50px;
+}
+
+#main-container{
+  margin-top:70px
+}
+
+#cover-figure{
+  width:100%;
+}
+
+.page-header{
+  margin-top:0
+}
+
+.page-header .title{
+  margin-top:0
+}
+
+.description{
+  text-indent: 2em;
+}
+
+.tags{
+  margin-top: 10px;
+}
+
+.tabs{
+  padding-top:50px
+}
+
+.quote-content{
+  padding:10px 5px 5px 68px;
+}
+
+.author{
+  text-align:left;
+  padding-left: 0;
+}
+
+.time{
+  text-align:right;
+  padding-right: 0;
+}
+
+.link-favicon{
+  width: 20px;
+  height: 20px;
+  float: left;
+}
+
+.col-md-3 .panel{
+  position:fixed;
+}
+
+.bs-example {
+  position: relative;
+  padding: 20px 15px 20px;
+  margin: 0 -15px 15px;
+  background-color: #fafafa;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,.05);
+  border-color: #e5e5e5 #eee #eee;
+  border-style: solid;
+  border-width: 1px 0;
+}
+/* Echo out a label for the example */
+.bs-example:after {
+  position: absolute;
+  top:  15px;
+  left: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+/* Undo width of container */
+.bs-example .container {
+  width: auto;
+}
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+}
+
+.footer-links {
+  margin: 10px 0;
+  padding-left: 0;
+  text-align: center;
+}
+.footer-links li {
+  display: inline;
+  padding: 0 2px;
+}
+.footer-links li:first-child {
+  padding-left: 0;
+}
+
+/* Make the examples and snippets not full-width */
+@media (min-width: 768px) {
+  .bs-example {
+    margin-left: 0;
+    margin-right: 0;
+    background-color: #fff;
+    border-width: 1px;
+    border-color: #ddd;
+    border-top-width: 0px;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 768px) {
+    .navbar-fixed-top, .navbar-default{
+    background-color:#333333;
+  }
+
+}

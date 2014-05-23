@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% from "forms.html" import edit_anime_field %}
+    <form method="post">
+      <dl>
+        {{ edit_anime_field(form.cn_name) }}
+        {{ edit_anime_field(form.name) }}
+        {{ edit_anime_field(form.tags) }}
+        {{ edit_anime_field(form.date) }}
+        {{ edit_anime_field(form.finished) }}
+      </dl>
+      <p><input type="submit" value="修改">
+    </form>
+
+{% endblock %}

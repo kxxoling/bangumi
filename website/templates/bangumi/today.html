@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+        本日更新：<br/>
+  {% for anime in animes %}
+        {{ anime.cn_name }} <a href="{{ url_for('edit_anime', anime_id=anime.id) }}">EDIT</a<br/>
+        {% for torrent in torrents[anime.cn_name] %}
+          <a href="{{ torrent.link }}">{{ torrent.title }}</a><br/>
+        {% endfor %}
+  {% endfor %}
+{% endblock %}

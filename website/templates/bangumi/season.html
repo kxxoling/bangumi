@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+        本季新番表：<br/>
+        <div>
+          星期一：<br/>
+          {% for anime in monday %}
+            {{ anime.cn_name }} <a href="{{ url_for('edit_anime', anime_id=anime.id) }}">EDIT</a><br/>
+          {% endfor %}
+        </div>
+        <div>
+          星期二：<br/>
+          {% for anime in tuesday %}
+            {{ anime.cn_name }} <a href="{{ url_for('edit_anime', anime_id=anime.id) }}">EDIT</a><br/>
+          {% endfor %}
+        </div>
+        <div>
+          星期三：<br/>
+          {% for anime in wednesday %}
+            {{ anime.cn_name }} <a href="{{ url_for('edit_anime', anime_id=anime.id) }}">EDIT</a><br/>
+          {% endfor %}
+        </div>
+        <div>
+          星期四：<br/>
+          {% for anime in thursday %}
+            {{ anime.cn_name }} <a href="{{ url_for('edit_anime', anime_id=anime.id) }}">EDIT</a><br/>
+          {% endfor %}
+        </div>
+        <div>
+          星期五：<br/>
+          {% for anime in friday %}
+            {{ anime.cn_name }} <a href="{{ url_for('edit_anime', anime_id=anime.id) }}">EDIT</a><br/>
+          {% endfor %}
+        </div>
+        <div>
+          星期六：<br/>
+          {% for anime in saturday %}
+            {{ anime.cn_name }} <a href="{{ url_for('edit_anime', anime_id=anime.id) }}">EDIT</a><br/>
+          {% endfor %}
+        </div>
+        <div>
+          星期日：<br/>
+          {% for anime in sunday %}
+            {{ anime.cn_name }} <a href="{{ url_for('edit_anime', anime_id=anime.id) }}">EDIT</a><br/>
+          {% endfor %}
+        </div>
+{% endblock %}

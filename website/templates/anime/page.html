@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block header %}
+<!--<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>-->
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+<script type=text/javascript>
+  $(function() {
+    $('a#submit_comment').bind('click', function() {
+      $.post($SCRIPT_ROOT + '/_add_comment', {
+        anime_id: $('input[name="anime_id"]').val(),
+        review_title: $('input[name="review_title"]').val(),
+        review_link: $('input[name="review_link"]').val(),
+        review_summary: $('textarea[name="review_summary"]').val()
+      }, function(data) {
+        $("#result").value(data.result);
+      });
+      return false;
+    });
+  });
+</script>
+{% endblock %}
+{% block body %}
+<div class="col-md-12 row">
+  <div class="col-md-5">
+    <img id="cover-figure" src="{{ anime.cover }}" />
+    <div class="tags">
+      {% for tag in anime.tags.split(',') %} 
+      {% if tags %}
+      <a href=""><span class="label label-primary">{{ tag }}</span></a>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="page-header">
+      <h1 class="title">
+        <a href="{{ url_for('edit_page', anime_name=anime.anime_name) }}">
+          {{ anime.anime_name }}</a>
+        <small>{{ anime.subtitle if anime.subtitle }}</small>
+      </h1>
+    </div>
+    <div class="description">
+      {{ anime.description|markdown|Markup }}
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12  tabs">
+  <ul class="nav nav-tabs nav-justified">
+    <li class="active"><a href="#quotes" data-toggle="tab">台词</a></li>
+    <li><a href="#reviews" data-toggle="tab">链接</a></li>
+    <li><a href="#tiny_shows" data-toggle="tab">图文欣赏</a></li>
+    <li><a href="#imgs" data-toggle="tab">画作欣赏</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content bs-example">
+    <div id="quotes" class="tab-pane row active">
+      {% if actor_lines %}
+      {% for actor_line in actor_lines %}
+      <div class="col-md-12">
+        <div class="col-md-1">
+          <img class="avatar img-circle" src="{{ actor_line.actor_pic }}"/>
+        </div>
+        <div class="col-md-11">
+          <div class="author col-md-6 text-primary">
+          {% if actor_line.actor != 'None' %}
+            {{ actor_line.actor }}
+          {% endif %}
+          </div>
+          <div class="time col-md-6 text-muted">12# 20:40:28</div>
+          <p>
+            {{ (actor_line.actor_line) }}
+          </p>
+        </div>
+      </div>
+      <div class="col-md-12"><hr></div>
+      {% endfor %}
+      {% endif %}
+      {% if session['nickname'] %}
+      <div class="col-md-12">
+        <form action="{{ url_for('show_page', anime_name=anime.anime_name) }}"
+              name="recommend_actor_quote" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="actor_line">推荐台词</label>
+            <input type="text" class="form-control" name="actor_line" id="actor_line" placeholder="在此输入你想推荐的台词" />
+            <input type="text" class="form-control" name="actor_name" id="actor_name" placeholder="名字" />
+            <input type="file" name="actor_image_upload" id="actor_image_upload" />
+          </div>
+          <button type="submit" class="btn btn-default" name="recommend" formmethod="post">点此推荐</button>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+
+    <div id="reviews" class="tab-pane">
+      {% for comment in comments %}
+      <div class="">
+        <img class="link-favicon img-circle" src="https://www.google.com.hk/images/google_favicon_128.png"/>
+        <h4 class="text-primary"><a href="{{ comment.link }}">{{ comment.title }}</a></h4>
+        <blockquote>
+          {{ comment.summary }}
+          <a href="{{ comment.link }}">更多……</a><br/>
+          <a href="#" class="rm_comment" id="rm_cmt_{{ comment.id }}">删除</a>
+        </blockquote>
+      </div>
+      <hr/>
+      {% endfor %}
+      {% if session['nickname'] %}
+      <div>
+        <form name="recommend_actor_quote" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="text" name="anime_id" value="{{ anime.id }}" style="visibility: hidden;">
+            <input type="text" class="form-control" name="review_title" id="review_title" placeholder="标题">
+            <input type="text" class="form-control" name="review_link" id="review_link" placeholder="链接">
+            <textarea class="form-control" rows="4" name="review_summary" id="review_summary"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default" name="recommend" formmethod="post">点此推荐</button>
+          <a href="#" id="submit_comment">点此推荐</a>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+
+    <div id="tiny_shows" class="tab-pane">...</div>
+
+    <div id="imgs" class="tab-pane">
+      <div class="row">
+        <div class="col-xs-6 col-md-3">
+          <a href="#" class="thumbnail">
+            <img src="https://lh6.googleusercontent.com/-fm90_czKjSo/UTg94EXPdNI/AAAAAAAAcLs/zAIFalewnm4/w1024-h716-no/Archlich+-+%25E9%25A8%258E%25E5%25A3%25AB%25E7%258E%258B+%252828363225%2529+.jpg" alt="...">
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

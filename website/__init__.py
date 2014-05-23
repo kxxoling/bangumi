@@ -37,7 +37,7 @@ def get_right_side_bar(func):
     def wrapper(*args, **kwargs):
         anime = Anime(cn_name=u'物语系列')
         anime.id = 2
-        g.hottest_animes = [anime]
+        g.newest_added_animes = [anime]
         g.newest_updated_animes = []
         return func(*args, **kwargs)
     return wrapper

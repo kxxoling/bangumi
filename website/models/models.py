@@ -77,6 +77,15 @@ class Anime(db.Model, CURDMixIN):
     def unfinished(self):
         self.finished = NOT_FINISHED
 
+    @classmethod
+    def get_newest_added(cls, lmt):
+        return cls.query.order_by(cls.id.desc()).limit(lmt)
+
+    @classmethod
+    def get_newest_updated(cls, lmt):
+        """__TODO__: 暂时以最近添加代替"""
+        return cls.get_newest_added(lmt)
+
     def __repr__(self):
         return (u'''
         Bangumi id: %s

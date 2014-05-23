@@ -19,11 +19,11 @@ class TestModel(unittest.TestCase):
 class TestAnime(TestModel):
 
     def test_create(self):
-        assert len(Anime.query.all()) == 0
+        assert Anime.query.count() == 0
         Anime(cn_name=u'龙珠', tags='', finished=0, first_time=datetime.date.today(), name='').create()
         Anime(cn_name=u'虫师', tags='', finished=0, first_time=datetime.date(2014, 4, 4), name='').create()
         Anime(cn_name=u'JOJO', name=u'JOJO的奇妙冒险').create()
-        assert len(Anime.query.all()) == 3
+        assert Anime.query.count() == 3
 
     def test_update(self):
         Anime(cn_name=u'龙珠', tags='', finished=0, first_time=datetime.date.today(), name='').create()
@@ -34,11 +34,11 @@ class TestAnime(TestModel):
     def test_delete(self):
         Anime(cn_name=u'虫师', tags='', finished=0, first_time=datetime.date(2014, 4, 4), name='').create()
         Anime(cn_name=u'JOJO', name=u'JOJO的奇妙冒险').create()
+        assert Anime.query.count() == 2
         ts = Anime.query.all()
-        assert len(ts) == 2
         for t in ts:
             t.delete()
-        assert len(Anime.query.all()) == 0
+        assert Anime.query.count() == 0
 
     def test_add_recommend(self):
         Anime(cn_name=u'JOJO', name=u'JOJO的奇妙冒险').create()
@@ -55,16 +55,25 @@ class TestAnime(TestModel):
         assert review.summary == 'summarytest'
         assert review.link == 'http://test.com/1'
 
+    def test_get_newest_added(self):
+        Anime(cn_name=u'虫师', tags='', finished=0, first_time=datetime.date(2014, 4, 4), name='').create()
+        Anime(cn_name=u'JOJO', name=u'JOJO的奇妙冒险').create()
+        animes = Anime.get_newest_added(5)
+        assert animes[0].id == 2
+        assert animes[0].cn_name == u'JOJO'
+        assert animes[1].id == 1
+        assert animes[1].cn_name == u'虫师'
+
 
 class TestTorrent(TestModel):
 
     def test_create(self):
-        assert len(Torrent.query.all()) == 0
+        assert Torrent.query.count() == 0
         Torrent(title='title1', link='http://t.tt/link/1', enclosure='http://t.tt/1.torrent',
                 pubdate=datetime.date(2014, 4, 4), description='').create()
         Torrent(title='title2', link='http://t.tt/link/2', enclosure='http://t.tt/2.torrent',
                 pubdate=datetime.date.today(), description='').create()
-        assert len(Torrent.query.all()) == 1
+        assert Torrent.query.count() == 2
 
     def test_update(self):
         Torrent(title='', link='http://t.tt/link/1', enclosure='http://t.tt/1.torrent',
@@ -79,63 +88,67 @@ class TestTorrent(TestModel):
                 pubdate=datetime.date(2014, 4, 4), description='').create()
         Torrent(title='title 2', link='http://t.tt/link/2', enclosure='http://t.tt/2.torrent',
                 pubdate=datetime.date.today(), description='').create()
+        assert Torrent.query.count() == 2
         ts = Torrent.query.all()
-        assert len(ts) == 2
         for t in ts:
             t.delete()
-        assert len(Torrent.query.all()) == 0
+        assert Torrent.query.count() == 0
 
 
 class TestQuote(TestModel):
 
     def test_create(self):
         Anime(cn_name=u'龙珠改', name=u'龙珠').create()
-        assert len(ActorQuote.query.all()) == 0
+        assert ActorQuote.query.count() == 0
         ActorQuote(anime_id=1, actor_line='', actor_pic='', actor='').create()
-        assert len(ActorQuote.query.all()) > 0
+        assert ActorQuote.query.count() == 1
 
     def test_update(self):
         Anime(cn_name=u'龙珠改', name=u'龙珠').create()
         ActorQuote(anime_id=1, actor_line='', actor_pic='', actor='').create()
         t = ActorQuote.query.all()[0]
         t.actor_line = 'test'
-        assert t.actor_line == 'test'
+        t.update()
+        ts = ActorQuote.query.all()[0]
+        assert ts.actor_line == 'test'
 
     def test_delete(self):
         Anime(cn_name=u'龙珠改', name=u'龙珠').create()
         ActorQuote(anime_id=1, actor_line='', actor_pic='', actor='').create()
         ActorQuote(anime_id=1, actor_line='', actor_pic='', actor='').create()
+        assert ActorQuote.query.count() == 2
         ts = ActorQuote.query.all()
-        assert len(ts) == 2
         for t in ts:
             t.delete()
-        assert len(ActorQuote.query.all()) == 0
+        assert ActorQuote.query.count() == 0
 
 
 class TestReview(TestModel):
 
     def test_create(self):
         Anime(cn_name=u'乒乓', name=u'乒乓').create()
-        assert len(AnimeReview.query.all()) == 0
+        assert AnimeReview.query.count() == 0
         AnimeReview(anime_id=1, title='test1', link='http://test.com/1', summary='').create()
-        assert len(AnimeReview.query.all()) == 1
+        assert AnimeReview.query.count() == 1
 
     def test_update(self):
         Anime(cn_name=u'乒乓', name=u'乒乓').create()
         AnimeReview(anime_id=1, title='test1', link='http://test.com/1', summary='').create()
         t = AnimeReview.query.all()[0]
         t.summary = 'test'
-        assert t.summary == 'test'
+        t.update()
+        ts = AnimeReview.query.all()[0]
+        assert ts.summary == 'test'
 
     def test_delete(self):
         Anime(cn_name=u'乒乓', name=u'乒乓').create()
         AnimeReview(anime_id=1, title='test1', link='http://test.com/1', summary='').create()
         AnimeReview(anime_id=1, title='test2', link='http://test.org/2').create()
+        assert AnimeReview.query.count() == 2
         ts = AnimeReview.query.all()
-        assert len(ts) == 2
         for t in ts:
             t.delete()
-        assert len(AnimeReview.query.all()) == 0
+        assert AnimeReview.query.count() == 0
 
 
 class TestUser(TestModel):
@@ -156,7 +169,7 @@ class TestUser(TestModel):
         user.register()
         for user in User.query.all():
             user.delete()
-        assert len(User.query.all()) == 0
+        assert User.query.count() == 0
 
     def test_update_role(self):
         user = User(nickname='kxxoling', openid='', google_account='kxxoling@gmail.com')

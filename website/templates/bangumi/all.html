@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "./base.html" %}
+{% block body %}
         所有 bangumi：<br/>
   {% for anime in animes %}
         <a href="{{ url_for('show_anime', anime_id=anime.id) }}">{{ anime.cn_name }}</a>

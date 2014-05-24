@@ -71,7 +71,7 @@ def search():
             anime_id = int(info)
             return redirect(url_for('.show_anime', anime_id=anime_id))
         except ValueError:
-            animes = None
+            animes = Anime.get_alike_animes(info)
             return render_template('search.html', animes=animes)
     else:
         flash('You need to type something to search!')

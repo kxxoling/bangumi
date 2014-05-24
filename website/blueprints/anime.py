@@ -18,7 +18,7 @@ def anime():
 @get_right_side_bar
 def show_anime(anime_id):
     anime = Anime.query.get(anime_id)
-    torrents = None
+    torrents = anime.get_alike_torrents()
     return render_template('anime.html', anime=anime, torrents=torrents)
 
 

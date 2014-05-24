@@ -1,5 +1,5 @@
 {% extends "./base.html" %}
-{% block content %}
+{% block body %}
     {{ anime.cn_name }} <a href="{{ url_for('anime.edit_anime', anime_id=anime.id) }}">Edit</a><br/>
     {% for torrent in torrents %}
           <a href="{{ torrent.link }}" >{{ torrent.title }}</a><br/>

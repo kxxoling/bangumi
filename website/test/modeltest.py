@@ -73,6 +73,15 @@ class TestAnime(TestModel):
             length += 1
         assert length == 2
 
+    def test_get_alike_animes(self):
+        Anime(cn_name=u'物语系列', name=u'物语系列').create()
+        Anime(cn_name=u'物语系列2', name=u'物语系列2').create()
+        Anime(cn_name=u'化物语', name=u'化物语').create()
+        length = 0
+        for anime in Anime.get_alike_animes(u'物语'):
+            length += 1
+        assert length == 3
+
 
 class TestTorrent(TestModel):
 

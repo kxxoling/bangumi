@@ -77,8 +77,12 @@ class Anime(db.Model, CURDMixIN):
     def unfinished(self):
         self.finished = NOT_FINISHED
 
-    def get_alike_torrents(self, lmt):
+    def get_alike_torrents(self, lmt=10):
         return Torrent.query.filter(Torrent.title.like('%'+self.name+'%')).limit(lmt)
+
+    @classmethod
+    def get_alike_animes(cls, name, lmt=10):
+        return cls.query.filter(cls.cn_name.like('%'+name+'%')).limit(lmt)
 
     @classmethod
     def get_newest_added(cls, lmt):

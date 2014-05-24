@@ -2,16 +2,16 @@
 {% block body %}
         所有 bangumi：<br/>
   {% for anime in animes %}
-        <a href="{{ url_for('show_anime', anime_id=anime.id) }}">{{ anime.cn_name }}</a>
-        <a href="{{ url_for('edit_anime', anime_id=anime.id) }}">EDIT</a><br/>
+        <a href="{{ url_for('anime.show_anime', anime_id=anime.id) }}">{{ anime.cn_name }}</a>
+        <a href="{{ url_for('anime.edit_anime', anime_id=anime.id) }}">EDIT</a><br/>
   {% endfor %}
 
   {% if animes.has_prev %}
-    <a href="{{ url_for('show_all_animes', page=anime.prev_num) }}"><< 上一页</a>
+    <a href="{{ url_for('anime.show_all_animes', page=anime.prev_num) }}"><< 上一页</a>
   {% endif %}
 
   {% if animes.has_next %}
-    <a href="{{ url_for('show_all_animes', page=anime.next_num) }}">下一页 >></a>
+    <a href="{{ url_for('anime.show_all_animes', page=anime.next_num) }}">下一页 >></a>
   {% endif %}
 
 {% endblock %}

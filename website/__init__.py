@@ -1,15 +1,18 @@
 # -*- coding: utf8 -*-
 from functools import wraps
 
-from flask import Flask, Blueprint, session, g, flash, redirect, url_for
+from flask import Flask, Blueprint, Markup, session, g, flash, redirect, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.openid import OpenID
+from flask.ext.misaka import markdown
 
 
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 oid = OpenID(app, '/var/tmp')
+app.jinja_env.filters['markdown'] = markdown
+app.jinja_env.filters['markup'] = Markup
 
 
 @app.before_request
